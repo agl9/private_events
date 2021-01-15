@@ -1,25 +1,60 @@
 <p id="notice"><%= notice %></p>
+<section class ='section'>
+  <div class ='columns'>
+    <div class ='column is-half'>
+      <h1 class ='title'>Upcoming events</h1>
+      <% @events.upcoming.each do |event| %>
+          <div class ='box'>
+            <div class ='name'>
+              <%= link_to event.title, event_path(event) %>
+            </div>
+            <div class ='creator'>
+              <% user = User.find(event.creator_id)%>
+              Creator: <%= link_to user.name, user_path(user)%>
+            </div>
 
-<h1>Events</h1>
+            <div class ='deets'>
+              <td><%= event.date %></td>
+              <td><%= event.location %></td>
+            </div>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+            <div class ='control'>
+              <td><%= link_to 'Edit', edit_event_path(event) %></td>
+              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
-  <tbody>
-    <% @events.each do |event| %>
-      <tr>
-        <td><%= link_to 'Show', event %></td>
-        <td><%= link_to 'Edit', edit_event_path(event) %></td>
-        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            </div>             
+          </div>
+      <% end %>
+    </div>
+    <br>
+    <div class ='column is-half'>
+      <h1 class ='title'>Past events</h1>
+      <% @events.past.each do |event| %>
+          <div class ='box'>
+            <div class ='name'>
+              <%= link_to event.title, event_path(event) %>
+            </div>
+            <div class ='creator'>
+              <% user = User.find(event.creator_id)%>
+              Creator: <%= link_to user.name, user_path(user)%>
+            </div>
 
-<br>
+            <div class ='deets'>
+              <td><%= event.date %></td>
+              <td><%= event.location %></td>
+            </div>
 
-<%= link_to 'New Event', new_event_path %>
+            <div class ='control'>
+              <td><%= link_to 'Edit', edit_event_path(event) %></td>
+              <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+
+            </div>             
+          </div>
+        
+      <% end %>
+    </div>
+    <br>
+  </div>
+
+  <%= link_to 'New Event', new_event_path, class:'button is-info' %>
+</section> 

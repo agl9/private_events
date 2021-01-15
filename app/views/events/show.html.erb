@@ -1,4 +1,31 @@
 <p id="notice"><%= notice %></p>
 
+<h1> Event details for <strong><%=@event.title%> </strong>held at <%=@event.location%><h1>
+
+<p>
+  <strong>Description</strong>
+  <%= @event.description %>
+</p>
+
+
+<p>
+  <strong>Date:</strong>
+  <%= @event.date%>
+</p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @event.creator.name%>
+</p>
+
+<p>
+  <ul> <strong>Attendees:</strong>
+    <% @event.attendees.each do |a|%>
+    <li> <%= link_to a.name, user_path(a) %></li>
+    <%end%>
+  </ul>
+</p>
+
+<%= link_to 'RSVP', event_rsvps_path(@event), method: :post, class: 'button is-info'%> <br/>
 <%= link_to 'Edit', edit_event_path(@event) %> |
 <%= link_to 'Back', events_path %>

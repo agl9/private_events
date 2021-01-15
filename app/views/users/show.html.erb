@@ -1,0 +1,64 @@
+<h1>User Profile for <%=@user.name%><h1>
+
+<p>
+  <strong>Username:</strong>
+  <%= @user.username %>
+</p>
+
+<p>
+  <strong>Email:</strong>
+  <%= @user.email %>
+</p>
+
+<h2>Events Created: </h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.created_events.each do |event| %>
+
+      <tr>
+        <td><%= link_to event.title, event_path(event) %></td>
+        <td><%= event.date %></td>
+        <td><%= event.location %></td>
+        <td><%= link_to 'Edit', edit_event_path(event) %></td>
+        <td><%= link_to 'Destroy', event, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table> <br/>
+
+<h2>Events (RSVP'd): </h2>
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Date</th>
+      <th>Location</th>
+      <th> Upcoming / Complete </th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @user.attended_events.each do |event| %>
+
+      <tr>
+        <td><%= link_to event.title, event_path(event) %></td>
+        <td><%= event.date %></td>
+        <td><%= event.location %></td>
+        <%if event.date >= Date.today%>
+          <td> Upcoming </td>
+        <%else%>
+          <td> Past </td>
+        <%end%>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
